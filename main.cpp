@@ -19,10 +19,15 @@ uint32_t byte_order(char* argv)
     {
         printf("Error\n");
 
-        return 0;
+        exit(1);
     }
 
-    Big_Endian = fread(&Data, sizeof(uint32_t), 1, Binary);
+    if ((Big_Endian = fread(&Data, sizeof(uint32_t), 1, Binary)) != 1)
+    {
+        printf("Read Error\n");
+
+        exit(1);
+    }
 
     Big_Endian = ntohl(Data);
 
