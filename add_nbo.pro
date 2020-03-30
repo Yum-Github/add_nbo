@@ -1,16 +1,10 @@
-# Created by and for Qt Creator This file was created for editing the project sources only.
-# You may attempt to use it for building too, by modifying this file here.
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
 
-#TARGET = add_nbo
+SOURCES += \
+        main.cpp
 
-HEADERS = \
-   $$PWD/add_nbo.h
-
-SOURCES = \
-   $$PWD/main.cpp
-
-INCLUDEPATH = \
-    $$PWD/.
-
-#DEFINES = 
-
+HEADERS += \
+    add_nbo.h
