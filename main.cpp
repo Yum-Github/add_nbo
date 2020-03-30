@@ -1,48 +1,55 @@
 #include "add_nbo.h"
 
-void add_nbo()
+void usage()
 {
     printf("syntax : add_nbo <file1> <file2>\n");
     printf("sample : add_nbo a.bin c.bin\n");
 
 }
 
-int byte_order(char* argv)
+uint32_t byte_order(char* argv)
 {
-    FILE *binary;
+    FILE *Binary;
 
-    uint32_t data, Byte;
+    uint32_t Data, Big_Endian;
 
-    binary = fopen(argv, "rb");
+    Binary = fopen(argv, "rb");
 
-    Byte = fread(&data, sizeof(int), 1, binary);
+    if (Binary == NULL)
+    {
+        printf("Error\n");
 
-    Byte = ntohl(data);
+        return 0;
+    }
 
-    fclose(binary);
+    Big_Endian = fread(&Data, sizeof(uint32_t), 1, Binary);
 
-    return Byte;
+    Big_Endian = ntohl(Data);
+
+    fclose(Binary);
+
+    return Big_Endian;
 }
 
 int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        add_nbo();
+        usage();
 
         return 0;
 
     }
 
-    uint32_t Binary_1, Binary_2, sum;
+    uint32_t Bin_1, Bin_2, Sum;
 
-    Binary_1 = byte_order(argv[1]);
-    Binary_2 = byte_order(argv[2]);
+    Bin_1 = byte_order(argv[1]);
+    Bin_2 = byte_order(argv[2]);
 
 
-    sum = Binary_1 + Binary_2;
+    Sum = Bin_1 + Bin_2;
 
-    printf("%d(%#x) + %d(%#x) = %d(%#x)", Binary_1, Binary_1, Binary_2, Binary_2, sum, sum);
+    printf("%d(%#x) + %d(%#x) = %d(%#x)\n", Bin_1, Bin_1, Bin_2, Bin_2, Sum, Sum);
 
 
     return 0;
